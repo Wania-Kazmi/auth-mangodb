@@ -1,4 +1,4 @@
-We used the following libraries in this project:
+We used the following libraries in this project: <br>
 <b>1. axios</b> - we can use fetch as well <br>
 <b>2. bcryptjs</b> - to encrypt the password and then store to databas, also used to create a token as well <br>
 <b>3. jsonwebtoken</b> - securely sending a token and not to be stored in the local storage. We will be sending and <br>securing the cookies from the server side so that it doesn't get manipulated on the front-end side and for this <br>we will need a jsonwebtoken
