@@ -5,3 +5,4 @@ We used the following libraries in this project: <br>
 <b>4. nodemailer - use to shoot out an email from gmail, aws or anything</b> <br>
 <b>5. react-hot-toast </b> - for pop-up messages  <br>
 <b>6. mongoose </b> - help us to talk to mango db. It's a wrapper around mango db drivers<br>
+

@@ -1,21 +1,67 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-// import { axios } from "axios";
+import {redirect} from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
+import axios  from "axios";
+
+
+
 
 export default function Signup() {
+  const router = useRouter(); //once the user is sign up I want to push it to the login page. For this we will use Router
   const [user, setUser] = useState({
     email: "",
     password: "",
     username: "",
   });
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const onSignup = async () => {};
+  const onSignup = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post('/api/users/signup', user);
+      console.log("Response of Sign up page", res);
+      toast.success("Signup Successfully!");
+      //push the user onto new page i.e login page
+      if(res.status == 200){
+        try{
+          console.log("Welcomeeeeeeeeeeeeeeeeeee");
+          router.push('/login');
+          toast.success("Directed to login");
+          {(<h1 className="text-white text-5xl font-extrabold">Workinggggg</h1>)}
+        } catch {
+          toast.error("Not Directing to login page");
+        }
+        // redirect('/login');
+      }
+
+    } catch (error:any) {
+
+      console.log("Signup Failed!!", error.message);
+      toast.error(error.message);
+
+    } finally {
+      setLoading(false); //no matter what Processing... needs to go away
+    }
+  };
+  
+  useEffect(()=>{
+    if(user.email.length > 0 && user.password.length > 0 && user.username.length > 0){
+      setButtonDisabled(false);
+    }else {
+      setButtonDisabled(true); 
+    }
+  },[user])
+
+
 
   return (
     <div className="flex flex-col items-center justify-center bg-[#16233d] h-screen">
-      <h1 className="font-bold text-2xl m-6 text-[#54c2f1] ">Signup</h1>
+      <div><Toaster /></div>
+      <h1 className="font-bold text-2xl m-6 text-[#54c2f1] ">{loading ? "Processing..." : "Signup"}</h1>
       <div className="bg-[#A5C9CA]/25 w-[450px] p-8 px-12">
         <form className="flex flex-col">
           {/* <label htmlFor="username">Username</label>
@@ -87,7 +133,7 @@ export default function Signup() {
             onClick={onSignup}
             className="text-white bg-[#1C82AD] hover:bg-[#186c91] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            Signup
+            {buttonDisabled ? "No Sign up" : "Sign up"}
           </button>
           <Link href={'/login'} className="mt-5 text-base font-semibold text-[#91d9f5] hover:underline">Already Signup? | Login here</Link>
         </form>
