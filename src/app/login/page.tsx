@@ -11,18 +11,16 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
 
   const onLogin = async () => {
     try {
       setLoading(true);
-
       const res = await axios.post('/api/users/login', user);
       console.log("response of login call to backend:====", res);
-      toast.success("Login Success!!");
-
+      // toast.success("Login Success!!");
       router.push("/profile");
       
     } catch (error:any) {
@@ -46,8 +44,8 @@ export default function Login() {
       <Toaster />
       <h1 className="font-bold text-2xl m-6 text-[#54c2f1] ">{loading ? "Processing...":"Login"}</h1>
       <div className="bg-[#A5C9CA]/25 w-[450px] p-8 px-12">
-        <form className="flex flex-col">
-
+        {/* <form className="flex flex-col"> */}
+        <div className="flex flex-col">
           <div className="mb-6">
             <label
               htmlFor="email"
@@ -83,14 +81,14 @@ export default function Login() {
           </div>
           
           <button
-            type="submit"
             onClick={onLogin}
             className="text-white bg-[#1C82AD] hover:bg-[#186c91] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             {buttonDisabled ? "No Login":"Login"}
           </button>
           <Link href={'/signup'} className="mt-5 text-base font-semibold text-[#91d9f5] hover:underline">No Account? | Register here</Link>
-        </form>
+        {/* </form> */}
+        </div>
       </div>
     </div>
   );
