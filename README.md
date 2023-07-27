@@ -6,3 +6,10 @@ We used the following libraries in this project: <br>
 <b>5. react-hot-toast </b> - for pop-up messages  <br>
 <b>6. mongoose </b> - help us to talk to mango db. It's a wrapper around mango db drivers<br>
 
+We build signup login front-end page
+We also build the backend of signup and login page and connect to database and jwt token for user
+Now:
+Some of our pages are not protected:
+Through profile page we can still go back to our login page and we can directly access to profile page
+This will be done through middleware
+Logout functionality is also pending yet
