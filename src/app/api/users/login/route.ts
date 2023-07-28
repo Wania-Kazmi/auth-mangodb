@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     //create a token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
-      expiresIn: "1h",
+      expiresIn: "2d",
     }); //it takes sometime to create a token so we use await here
     //.sign - jwt has method .sign to create a sign token which takes the 1. tokenData(that should be unique), 2. Token Secret key, 3. expiresIn - how long you wanted to stay on application for 1h or for 1d.
 
