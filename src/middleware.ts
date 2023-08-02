@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
 
   //Declaring which path are public and which are not
-    const isPublicPath = path == '/login' || path == '/signup'; //this should not be visible to somebody who has token
+    const isPublicPath = path == '/login' || path == '/signup' || path == '/verifyemail'; //this should not be visible to somebody who has token
 
     //Extracting the user's token:
     const token = request.cookies.get('token')?.value || ''; //it is possible we have token value or not. So if the token has value we extract the value via request.cookies.get('token')?.value and if it's empty we can provide the value of empty string like this - || ''
@@ -32,6 +32,7 @@ export const config = {
     '/',
     '/profile/:path*',
     '/login',
-    '/signup'
+    '/signup',
+    '/verifyemail',
   ]
 }
