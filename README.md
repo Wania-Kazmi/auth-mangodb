@@ -24,3 +24,5 @@ We will use nodemailer which helps us with almost everything that we want to do 
 
 <b>How do you want to verify the user?</b>
 There are couple of ways, we can do all in the backend or mix of backend or frontend. In case of backend approach URL will be in that way and the backend advantage is there is nothing much you just have to redirect the user onto home page and if we will follow the front-end part then we need a frontend page of it. Advantage of frontend is that if you bring the user to certain page for verification then the verification happens then we can provide a message of successfull verification
+
+session maintain .... client side/ server side???
