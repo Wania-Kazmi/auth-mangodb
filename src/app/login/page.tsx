@@ -20,12 +20,15 @@ export default function Login() {
       setLoading(true);
       const res = await axios.post('/api/users/login', user);
       console.log("response of login call to backend:====", res);
-      // toast.success("Login Success!!");
+      if(res.data.error == "Invalid password"){
+        toast.error("Invalid Password")
+      }
+      // toast.success(res.data);
       router.push("/profile");
       
     } catch (error:any) {
       console.log("Login Failed!",error.message);
-      toast.error("Login Failed");
+      toast.error(error.message);
     } finally {
       setLoading(false)
     }
@@ -87,6 +90,7 @@ export default function Login() {
             {buttonDisabled ? "No Login":"Login"}
           </button>
           <Link href={'/signup'} className="mt-5 text-base font-semibold text-[#91d9f5] hover:underline">No Account? | Register here</Link>
+          <Link href={'/resetPassword'} className="mt-5 text-base font-semibold text-[#91d9f5] hover:underline">Forgot Password?</Link>
         {/* </form> */}
         </div>
       </div>

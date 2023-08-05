@@ -9,6 +9,7 @@ import bcrypt from "bcryptjs";
 export const sendEmail = async ({ email, emailType, userId }: any) => {
   try {
     //create a hashed token
+    console.log("VAlue of user id: =====",userId)
     const hashedToken = await bcrypt.hash(userId.toString(), 10);
     console.log("hashed Token is:", hashedToken)
 
@@ -35,14 +36,22 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
         }
       });
 
-    const mailOptions = {
+    const mailOptionsForVerifyEmail = {
         from: "baquofauloummau-9180@yopmail.com",
-        to: "testidux@gmail.com",
+        to: email,
         subject: emailType == "VERIFY" ? "Verify your email" : "Reset your Password",
         html: `<p>Click <a href='${process.env.DOMAIN}/verifyemail?token=${hashedToken}'>here</a> to ${emailType == "VERIFY" ? "Verify your email" : "Reset your password"} or copy paste the link in your browser <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken} </p>`
     }
-
-    const mailResponse = await transport.sendMail(mailOptions);
+    const mailOptionsForResetPassword = {
+        from: "baquofauloummau-9180@yopmail.com",
+        to: email,
+        subject: emailType == "VERIFY" ? "Verify your email" : "Reset your Password",
+        html: `<p>Click <a href='${process.env.DOMAIN}/forgotpassword?token=${hashedToken}'>here</a> to ${emailType == "VERIFY" ? "Verify your email" : "Reset your password"} or copy paste the link in your browser <br> ${process.env.DOMAIN}/forgotpassword?token=${hashedToken} </p>`
+    }
+    // console.log("Reset password ====",mailOptionsForResetPassword);
+    // const mailResponse = await transport.sendMail(mailOptions);
+    const mailResponse = emailType == "VERIFY" ? await transport.sendMail(mailOptionsForVerifyEmail) : await transport.sendMail(mailOptionsForResetPassword);
+    // const mailResponse = await transport.sendMail(mailOptionsForResetPassword);
     return mailResponse;
 
     //what if the verify token is for forgotPassword - we need to grab the password from the request body have to submit that as well

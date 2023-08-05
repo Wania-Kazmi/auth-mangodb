@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+
+//token must be validated here - encryption, decryption will be here
  
 export function middleware(request: NextRequest) {
   //we have couple of paths which are public paths - login, signup. If somebody has token he must not be able to have to those public paths.
