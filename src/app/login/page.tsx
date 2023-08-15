@@ -21,9 +21,15 @@ export default function Login() {
       const res = await axios.post('/api/users/login', user);
       console.log("response of login call to backend:====", res);
       if(res.data.error == "Invalid password"){
-        toast.error("Invalid Password")
+        toast.error("Invalid Password");
       }
-      // toast.success(res.data);
+      else if(res.data.error == "User doesnot exist"){
+        toast.error("User doesnot exist");
+      }
+      else if (res.data.error == "User is not Verified"){
+        toast.error("User is not Verified");
+      }
+      toast.success("Login Successful");
       router.push("/profile");
       
     } catch (error:any) {

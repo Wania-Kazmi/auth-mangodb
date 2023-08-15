@@ -22,6 +22,7 @@ export default function VerifyEmailPage() {
     const urlToken = window.location.search.split("=")[1]; //in url before the = all will be at [0] and right side of = will be all [1] value
     setToken(urlToken || "");
   }, []);
+  
   useEffect(() => {
     if (token.length > 0) {
       verifyUserEmail();
